@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcium's Secret Recipe Kitchen - Bake with Data, Not with Doubt!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-yellow: #FFD166;
+            --secondary-blue: #06D6A0;
+            --accent-red: #EF476F;
+            --bg-white: #FFFFFF;
+            --text-dark: #333333;
+            --text-medium: #555555;
+            --text-light: #777777;
+        }
+
+        body {
+            font-family: 'Baloo 2', 'Nunito', sans-serif;
+            background-color: var(--bg-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        /* Background Pattern */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23333' fill-opacity='0.5'%3E%3Cpath d='M20 20 L25 15 L30 20 M25 15 L25 35' stroke='%23333' stroke-width='2' fill='none'/%3E%3Ccircle cx='70' cy='25' r='8' fill='none' stroke='%23333' stroke-width='2'/%3E%3Cpath d='M65 25 L75 25 M70 20 L70 30' stroke='%23333' stroke-width='1'/%3E%3Cpath d='M20 70 Q25 60 30 70 T40 70' stroke='%23333' stroke-width='2' fill='none'/%3E%3Crect x='65' y='65' width='10' height='10' rx='2' fill='none' stroke='%23333' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E");
+            animation: float-pattern 30s linear infinite;
+        }
+
+        @keyframes float-pattern {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-120px); }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: gentle-bob 3s ease-in-out infinite;
+        }
+
+        @keyframes gentle-bob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .chef-cipher {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            animation: slide-in-right 0.8s ease-out;
+        }
+
+        @keyframes slide-in-right {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: var(--text-medium);
+            margin-bottom: 30px;
+            animation: slide-in-right 0.8s ease-out 0.2s both;
+        }
+
+        .cta-button {
+            background: var(--accent-red);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: slide-in-right 0.8s ease-out 0.4s both;
+            box-shadow: 0 4px 15px rgba(239, 71, 111, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(239, 71, 111, 0.4);
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 20px;
+            background: linear-gradient(to bottom, #f8f9fa, white);
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 50px;
+            color: var(--text-dark);
+        }
+
+        .steps-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 20px;
+        }
+
+        .step-card {
+            flex: 0 0 400px;
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            scroll-snap-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .step-visual {
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .mixing-bowl {
+            width: 150px;
+            height: 100px;
+            background: linear-gradient(to bottom, #e0e0e0, #f5f5f5);
+            border-radius: 0 0 50% 50%;
+            position: relative;
+            animation: wobble 2s ease-in-out infinite;
+        }
+
+        @keyframes wobble {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        .ingredient-input {
+            position: absolute;
+            top: -30px;
+            background: white;
+            border: 2px solid var(--primary-yellow);
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .ingredient-input:hover {
+            background: var(--primary-yellow);
+            transform: scale(1.05);
+        }
+
+        .ingredient-input:nth-child(1) { left: -60px; }
+        .ingredient-input:nth-child(2) { left: 50%; transform: translateX(-50%); }
+        .ingredient-input:nth-child(3) { right: -60px; }
+
+        .trusty-oven {
+            width: 200px;
+            height: 150px;
+            background: linear-gradient(to bottom, #4a4a4a, #2a2a2a);
+            border-radius: 10px;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .oven-door {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            background: linear-gradient(to bottom, #333, #111);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .oven-lock {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(6, 214, 160, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(6, 214, 160, 0.8); }
+        }
+
+        .cake-result {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            animation: celebrate 1s ease-in-out;
+        }
+
+        @keyframes celebrate {
+            0% { transform: scale(0) rotate(0); }
+            50% { transform: scale(1.1) rotate(5deg); }
+            100% { transform: scale(1) rotate(0); }
+        }
+
+        .cake-base {
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, #f4a460, #daa520);
+            border-radius: 10px;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .cake-frosting {
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--primary-yellow), #ffc947);
+            border-radius: 50% 50% 10px 10px;
+            position: absolute;
+            top: 0;
+        }
+
+        .cake-lock {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+        }
+
+        .step-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .step-content p {
+            font-size: 1.1rem;
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--secondary-blue);
+            box-shadow: 0 0 10px rgba(6, 214, 160, 0.5);
+        }
+
+        /* Why It Matters Section */
+        .why-matters {
+            padding: 80px 20px;
+            background: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .feature-card p {
+            font-size: 1.1rem;
+            color: var(--text-medium);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, rgba(255, 209, 102, 0.1), rgba(6, 214, 160, 0.1));
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .floating-cake {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.1;
+            font-size: 200px;
+            animation: float-rotate 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes float-rotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .cta-content p {
+            font-size: 1.25rem;
+            color: var(--text-medium);
+            margin-bottom: 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--secondary-blue);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.125rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(6, 214, 160, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(6, 214, 160, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--secondary-blue);
+            border: 2px solid var(--secondary-blue);
+            padding: 15px 35px;
+            font-size: 1.125rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: #f8f9fa;
+            padding: 40px 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary-blue);
+            margin-bottom: 10px;
+        }
+
+        .footer-copyright {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: var(--text-medium);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-blue);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            background: var(--text-medium);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--secondary-blue);
+            transform: scale(1.1);
+        }
+
+        /* Chef Cipher Animation */
+        .chef-blink {
+            animation: blink 4s infinite;
+        }
+
+        @keyframes blink {
+            0%, 90%, 100% { opacity: 1; }
+            95% { opacity: 0.3; }
+        }
+
+        .sparkle {
+            position: absolute;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .steps-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .step-card {
+                flex: 0 0 auto;
+                width: 100%;
+                max-width: 400px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-content {
+                text-align: center;
+            }
+
+            .footer-links, .social-icons {
+                justify-content: center;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading Animation */
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fade-in 0.8s ease-out both;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Pattern -->
+    <div class="bg-pattern"></div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-container">
+            <div class="hero-visual">
+                <svg class="chef-cipher" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Chef Body -->
+                    <ellipse cx="200" cy="350" rx="80" ry="100" fill="#FFD166"/>
+                    
+                    <!-- Chef Apron -->
+                    <rect x="150" y="300" width="100" height="120" rx="10" fill="#FFD166"/>
+                    <rect x="175" y="320" width="20" height="20" rx="3" fill="white"/>
+                    <path d="M180 325 L185 330 L190 325" stroke="#06D6A0" stroke-width="2" fill="none"/>
+                    
+                    <!-- Chef Arms -->
+                    <ellipse cx="120" cy="320" rx="25" ry="60" fill="#FDBCB4" transform="rotate(-30 120 320)"/>
+                    <ellipse cx="280" cy="320" rx="25" ry="60" fill="#FDBCB4" transform="rotate(30 280 320)"/>
+                    
+                    <!-- Chef Head -->
+                    <circle cx="200" cy="200" r="60" fill="#FDBCB4"/>
+                    
+                    <!-- Chef Hat -->
+                    <rect x="150" y="140" width="100" height="60" rx="5" fill="white"/>
+                    <ellipse cx="200" cy="140" rx="55" ry="20" fill="white"/>
+                    <ellipse cx="200" cy="200" rx="50" ry="15" fill="white"/>
+                    
+                    <!-- Chef Face -->
+                    <circle cx="180" cy="200" r="5" fill="#333" class="chef-blink"/>
+                    <circle cx="220" cy="200" r="5" fill="#333" class="chef-blink"/>
+                    <path d="M180 220 Q200 235 220 220" stroke="#333" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    
+                    <!-- Sparkle -->
+                    <g class="sparkle" style="transform-origin: 320px 280px;">
+                        <path d="M320 270 L320 290 M310 280 L330 280" stroke="#FFD166" stroke-width="3" stroke-linecap="round"/>
+                    </g>
+                </svg>
+            </div>
+            <div class="hero-content">
+                <h1>Bake with Data, Not with Doubt!</h1>
+                <p>Welcome to Arcium's kitchen, where we use your secret ingredients (your data) to create amazing results — all while keeping your recipe completely private. See how it works!</p>
+                <button class="cta-button" onclick="scrollToSection('how-it-works')">Start Baking!</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <h2 class="section-title">The Secret Recipe in 3 Simple Steps</h2>
+        <div class="steps-container">
+            <!-- Step 1 -->
+            <div class="step-card">
+                <div class="step-visual">
+                    <div class="mixing-bowl" id="mixingBowl">
+                        <div class="ingredient-input" onclick="addIngredient(this)">Secret 1</div>
+                        <div class="ingredient-input" onclick="addIngredient(this)">Secret 2</div>
+                        <div class="ingredient-input" onclick="addIngredient(this)">Secret 3</div>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <h3>1. You Provide the Ingredients</h3>
+                    <p>Your private data is like a secret family recipe. You add it to the bowl, but it's kept completely confidential from start to finish.</p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card">
+                <div class="step-visual">
+                    <div class="trusty-oven">
+                        <div class="oven-door">
+                            <div class="oven-lock">🔒</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <h3>2. Secure Processing</h3>
+                    <p>The ingredients are processed inside our "Trusty Oven" — Arcium's Trusted Execution Environment. It's a completely sealed and secure space where the magic happens, without anyone peeking inside.</p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card">
+                <div class="step-visual">
+                    <div class="cake-result">
+                        <div class="cake-base"></div>
+                        <div class="cake-frosting"></div>
+                        <div class="cake-lock">🔒</div>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <h3>3. The Perfect Result</h3>
+                    <p>Voilà! A verified result is delivered. You get the delicious cake you wanted, proving the recipe worked perfectly — and your secret ingredients were never revealed to anyone.</p>
+                </div>
+            </div>
+        </div>
+        <div class="progress-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </section>
+
+    <!-- Why It Matters Section -->
+    <section class="why-matters" id="why-matters">
+        <h2 class="section-title">Why Our Kitchen is The Safest in Web3</h2>
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon" style="color: var(--secondary-blue);">🛡️</div>
+                <h3>Absolute Privacy</h3>
+                <p>Your data is processed in a hardware-based black box. No one, not even Arcium, can ever see the raw data. It's confidential computing, simplified.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon" style="color: var(--primary-yellow);">✅</div>
+                <h3>Verifiable Integrity</h3>
+                <p>The "cake" comes with a guarantee. Arcium provides cryptographic proof that your computation was executed correctly without errors or tampering.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon" style="color: var(--accent-red);">🔗</div>
+                <h3>Trustless Collaboration</h3>
+                <p>Multiple parties can bring their own secret ingredients to the kitchen and collaborate on a recipe without ever having to trust each other or reveal their data.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="cta">
+        <div class="floating-cake">🎂</div>
+        <div class="cta-content">
+            <h2>Ready to Build with Privacy?</h2>
+            <p>Explore the technology behind Chef Cipher's kitchen and start building the next generation of secure, privacy-preserving applications on Arcium.</p>
+            <div class="cta-buttons">
+                <button class="btn-primary">Read The Docs</button>
+                <button class="btn-secondary">Join Our Community</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">Arcium</div>
+                <p class="footer-copyright">© 2023 Arcium. All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#hero">Home</a>
+                <a href="#">Docs</a>
+                <a href="#">Blog</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="social-icons">
+                <a href="#" class="social-icon" aria-label="Twitter">𝕏</a>
+                <a href="#" class="social-icon" aria-label="Discord">D</a>
+                <a href="#" class="social-icon" aria-label="GitHub">G</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll function
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Add ingredient animation
+        function addIngredient(element) {
+            // Create floating orb
+            const orb = document.createElement('div');
+            orb.style.cssText = `
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #FFD166, #06D6A0);
+                animation: fall-into-bowl 1s ease-in forwards;
+                top: ${element.offsetTop}px;
+                left: ${element.offsetLeft}px;
+            `;
+            
+            element.parentElement.appendChild(orb);
+            
+            // Remove orb after animation
+            setTimeout(() => orb.remove(), 1000);
+            
+            // Flash the button
+            element.style.background = '#FFD166';
+            setTimeout(() => {
+                element.style.background = 'white';
+            }, 300);
+
+            // Show chef message
+            showChefMessage();
+        }
+
+        // Show chef cipher message
+        function showChefMessage() {
+            const existingBubble = document.querySelector('.speech-bubble');
+            if (existingBubble) return;
+
+            const bubble = document.createElement('div');
+            bubble.className = 'speech-bubble';
+            bubble.innerHTML = "Don't worry, I can't see what you're adding!";
+            bubble.style.cssText = `
+                position: fixed;
+                bottom: 100px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: white;
+                padding: 15px 25px;
+                border-radius: 20px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+                font-weight: 600;
+                color: #333;
+                animation: pop-in 0.5s ease-out;
+                z-index: 1000;
+            `;
+            
+            document.body.appendChild(bubble);
+            
+            setTimeout(() => bubble.remove(), 3000);
+        }
+
+        // Add falling animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall-into-bowl {
+                0% {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+                100% {
+                    opacity: 0;
+                    transform: translateY(100px) scale(0.5);
+                }
+            }
+            
+            @keyframes pop-in {
+                0% {
+                    opacity: 0;
+                    transform: translateX(-50%) scale(0.8);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateX(-50%) scale(1);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Progress dots for steps
+        const stepsContainer = document.querySelector('.steps-container');
+        const dots = document.querySelectorAll('.dot');
+        
+        stepsContainer.addEventListener('scroll', () => {
+            const scrollLeft = stepsContainer.scrollLeft;
+            const cardWidth = 430; // 400px + 30px gap
+            const activeIndex = Math.round(scrollLeft / cardWidth);
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === activeIndex);
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Add some playful interactions
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animate chef on page load
+            const chef = document.querySelector('.chef-cipher');
+            if (chef) {
+                chef.style.animation = 'gentle-bob 3s ease-in-out infinite';
+            }
+
+            // Add hover effect to steps
+            document.querySelectorAll('.step-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    const visual = card.querySelector('.step-visual > *');
+                    if (visual) {
+                        visual.style.transform = 'scale(1.05)';
+                    }
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    const visual = card.querySelector('.step-visual > *');
+                    if (visual) {
+                        visual.style.transform = 'scale(1)';
+                    }
+                });
+            });
+        });
+
+        // Reset demo button functionality
+        let resetButton = document.createElement('button');
+        resetButton.textContent = 'Watch Again';
+        resetButton.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--secondary-blue);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        `;
+        
+        resetButton.addEventListener('click', () => {
+            stepsContainer.scrollTo({ left: 0, behavior: 'smooth' });
+        });
+        
+        document.body.appendChild(resetButton);
+
+        // Show reset button when scrolled to end
+        stepsContainer.addEventListener('scroll', () => {
+            const maxScroll = stepsContainer.scrollWidth - stepsContainer.clientWidth;
+            if (stepsContainer.scrollLeft >= maxScroll - 10) {
+                resetButton.style.display = 'block';
+            } else {
+                resetButton.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
